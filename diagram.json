@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "author": "Anonymous maker",
+  "author": "Javier Sánchez Redondo, Javier Gutiérrez Rodríguez, David Viñuela Reyes",
   "editor": "wokwi",
   "parts": [
     { "type": "wokwi-breadboard-half", "id": "bb1", "top": 64.2, "left": 262, "attrs": {} },
