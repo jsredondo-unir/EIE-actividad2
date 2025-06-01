@@ -13,7 +13,7 @@
 
  ### Hardware
  #### Diagrama de conexiones
- ![Diagrama del circuito](Esquemático.png)
+ ![Diagrama del circuito](Esquemático.PNG)
 
  #### Bill of Materials
  
