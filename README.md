@@ -4,6 +4,8 @@
   - Javier Gutiérrez Rodríguez
   - David Viñuela Reyes
   - Javier Sánchez Redondo
+ 
+  *Se añade el video de simulación del proyecto en un archivo .zip debido a su tamaño*
     
  *Máster Universitario en Ingeniería de Telecomunicación*
 
