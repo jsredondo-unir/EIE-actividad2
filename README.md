@@ -19,6 +19,10 @@
  [📄 Componentes.csv](BOM.csv)
  ### Software
 
+El software realizado durante esta actividad tiene varias partes. Se ha partido de inicializar todas las librerías, pines y crear objetos utilizando la placa base Arduino Uno. 
+
+![image](https://github.com/user-attachments/assets/5951f1cc-c17e-435b-a7ee-c005dfce4604)
+
 
 ## Conclusiones
 
