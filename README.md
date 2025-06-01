@@ -61,4 +61,4 @@ Finalmente, en esta última línea de la función loop() se puede ver la llamada
 
 ## Conclusiones
 
-## Licencia
+Se ha desarrollado un sistema de monitorización de clima utilizando distintos sensores para poder posteriormente representar la información recogida de forma visual, a partir de una pantalla LCD. La integración de este sistema ha constado de numerosos elementos con distintas funcionalidades, como pueden ser sensores de humedad, temperatura y luz, LEDs, botones o servomotores, consiguiendo así una solución funcional para este sistema. 
