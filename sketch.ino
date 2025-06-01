@@ -9,12 +9,14 @@
 #include <LiquidCrystal_I2C.h> // Librería para el manejo de la pantalla LCD
 #include <DHT.h> // Libreria para sensor DHT de temperatura y humedad
 #include <math.h>
+#include <Servo.h> // Incluye la biblioteca servo
 
 #define DHTPIN 2 // En este pin es donde conectamos el sensor
 #define DHTTYPE DHT22 // Usaremos el detector DHT22
 #define BUTTON A2 // En este pin es donde conectamos el botón
+#define SERVOPIN 9 // En este pin es donde conectamos el servomotor
 
-
+Servo myservo; // Crea un objeto servo para controlar el servomotor
 LiquidCrystal_I2C lcd(0x27, 16, 2); // Creación del objeto de la pantalla LCD
 DHT dht(DHTPIN, DHTTYPE); // Creacion del objeto del sensor DHT
 
@@ -23,9 +25,13 @@ DHT dht(DHTPIN, DHTTYPE); // Creacion del objeto del sensor DHT
 int ValorLDR = 0; 
 int brilloLED = 0;
 byte cantidad_LEDs = 0;
-byte pinesLED[5] = {3, 5, 9, 10, 11}; // En este array contiene los pines conectados a los LEDs
+byte pinesLED[4] = {3, 5, 6, 11}; // En este array contiene los pines conectados a los LEDs
 bool status = true;
 int menu = 0;
+int TempMedida = 0;
+int TempDeseada = 25;
+int LinMaxControl = 0;
+int LinMinControl = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -39,10 +45,11 @@ void setup() {
   delay(4000);
   lcd.clear();
   dht.begin();
-  for (byte i = 0; i < 5; i++) {
+  for (byte i = 0; i < 4; i++) {
     pinMode(pinesLED[i], OUTPUT);
   }
   pinMode(BUTTON, INPUT_PULLUP);
+  myservo.attach(SERVOPIN);
 }
 
 void loop() {
@@ -61,7 +68,7 @@ void loop() {
   brilloLED = map(ValorLDR, 1023, 0, 0, 255); // Ponemos el valor LDR a brillo PWM
 
   // Encendemos los LEDs según los valores recogidos  
-  for (byte i = 0; i < 5; i++) {
+  for (byte i = 0; i < 4; i++) {
     if (i < cantidad_LEDs) {
       analogWrite(pinesLED[i], brilloLED); // Encendemos LEDs ajustando brillo
     } else {
@@ -89,21 +96,21 @@ void loop() {
     }
   }
 
+  // Modificamos la posición del servomotor en función de la temperatura leída para simular la apertura de una compuerta
+  TresPosSinHistProp(temperature);
 }
 
 // Creamos una funcion para calcular la cantidad de LEDs que hay que encender
 int calcular_cantidad_leds(int ValorLDR) {
   if (ValorLDR > 845) {
-    cantidad_LEDs = 5;
-  } else if (ValorLDR > 675) {
     cantidad_LEDs = 4;
-  } else if (ValorLDR > 505) {
+  } else if (ValorLDR > 675) {
     cantidad_LEDs = 3;
-  } else if (ValorLDR > 335) {
+  } else if (ValorLDR > 505) {
     cantidad_LEDs = 2;
-  } else if (ValorLDR > 165) {
+  } else if (ValorLDR > 335) {
     cantidad_LEDs = 1;
-  } else {
+  } else if (ValorLDR > 165) {
     cantidad_LEDs = 0;
   }
 
@@ -141,4 +148,23 @@ void mostrar_lux(float lux) {
 void cambiar_informacion_lcd() {
   menu = menu >= 2 ? 0 : menu + 1;
   delay(50);
+}
+
+// Creamos una funcion que vaya cambiando de la posición del servo según la temperatura
+void TresPosSinHistProp(int temperature) {
+  // Calculo de límites de control con +-3
+  LinMaxControl = TempDeseada + 3;
+  LinMinControl = TempDeseada - 3;
+  TempMedida = (int) temperature;
+
+  //Compara y mueve el servomotor a diferentes posiciones para simular la apertura de una compuerta
+  if (TempMedida>=LinMaxControl) { 
+    myservo.write(120); // Abrir compuerta
+  }  
+  else if (TempMedida<=LinMinControl) {
+    myservo.write(60); // Cerrar compuerta
+  }
+  else {
+    myservo.write(90); // Mantener conpuerta en posición media
+  }
 }
