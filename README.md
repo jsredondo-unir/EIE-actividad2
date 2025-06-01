@@ -7,8 +7,6 @@
     
  *Máster Universitario en Ingeniería de Telecomunicación*
 
- ## Introducción al sistema de control y actuación en función del clima
-
  ## Diseño del sistema
 
  ### Hardware
