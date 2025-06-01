@@ -29,7 +29,7 @@ byte pinesLED[4] = {3, 5, 6, 11}; // En este array contiene los pines conectados
 bool status = true;
 int menu = 0;
 int TempMedida = 0;
-int TempDeseada = 25;
+float TempDeseada = 25.00;
 int LinMaxControl = 0;
 int LinMinControl = 0;
 
@@ -90,8 +90,10 @@ void loop() {
     if (menu == 0) {
       mostrar_temperatura(temperature);
     } else if (menu == 1) {
-      mostrar_humedad(humidity);
+      mostrar_temperatura_ext(TempDeseada);
     } else if (menu == 2) {
+      mostrar_humedad(humidity);
+    } else if (menu == 3) {
       mostrar_lux(lux);
     }
   }
@@ -126,6 +128,14 @@ void mostrar_temperatura(float temperature) {
   lcd.print(" *C");
 }
 
+void mostrar_temperatura_ext(float TempDeseada) {
+  lcd.setCursor(0,0);
+  lcd.print("Temperatura Ext: ");
+  lcd.setCursor(0,1);
+  lcd.print(TempDeseada);
+  lcd.print(" *C");
+}
+
 // Creamos una funcion que nos muestre la humedad medida por el sensor por el LCD
 void mostrar_humedad(float humidity) {
   lcd.setCursor(0,0); // Posicionamiento de cursor
@@ -146,7 +156,7 @@ void mostrar_lux(float lux) {
 
 // Creamos una funcion que vaya cambiando de menú (usada al pulsar el botón)
 void cambiar_informacion_lcd() {
-  menu = menu >= 2 ? 0 : menu + 1;
+  menu = menu >= 3 ? 0 : menu + 1;
   delay(50);
 }
 
