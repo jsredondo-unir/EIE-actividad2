@@ -16,7 +16,7 @@
  ![Diagrama del circuito](Esquemático.PNG)
 
  #### Bill of Materials
- 
+ [📄 componentes.csv](BOM.csv)
  ### Software
 
 
