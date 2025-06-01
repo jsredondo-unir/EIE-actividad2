@@ -12,7 +12,11 @@
  ## Diseño del sistema
 
  ### Hardware
+ #### Diagrama de conexiones
+ ![Diagrama del circuito](Esquemático.png)
 
+ #### Bill of Materials
+ 
  ### Software
 
 
